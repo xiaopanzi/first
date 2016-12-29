@@ -1,0 +1,37 @@
+-- ================================================
+-- Template generated from Template Explorer using:
+-- Create Trigger (New Menu).SQL
+--
+-- Use the Specify Values for Template Parameters 
+-- command (Ctrl-Shift-M) to fill in the parameter 
+-- values below.
+--
+-- See additional Create Trigger templates for more
+-- examples of different Trigger statements.
+--
+-- This block of comments will not be included in
+-- the definition of the function.
+-- ================================================
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+create TRIGGER [dbo].[trig_delete_base_user]
+   ON  [dbo].[user_base_tab]
+   AFTER delete
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+    INSERT INTO dbo.user_base_tab_monitor(user_no,user_idcard,user_name,idcard_type,sex,born,nation,address,now_address,mobile_phone,tele_phone,note,identity_date_f,identity_date_e,identity_from,icon_source,created_type,last_updated_type,source_id,create_date,create_by,last_update_date,last_update_by,opType) 
+    SELECT user_no,user_idcard,user_name,idcard_type,sex,born,nation,address,now_address,mobile_phone,tele_phone,note,identity_date_f,identity_date_e,identity_from,icon_source,created_type,last_updated_type,source_id,create_date,create_by,last_update_date,last_update_by,'3' as opType FROM Deleted;
+    -- Insert statements for trigger here
+
+END
+GO
